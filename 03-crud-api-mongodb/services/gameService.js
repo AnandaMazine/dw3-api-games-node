@@ -29,6 +29,32 @@ class gameService {
       console.log(error);
     }
   }
+
+  // Deletando registros no banco
+  async Delete(id) {
+    try {
+      await Game.findByIdAndDelete(id);
+      console.log(`Game com a id: ${id} foi deletado com sucesso.`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // Alterando registros no banco
+  async Update(id, title, year, genre, platform, price) {
+    try {
+      await Game.findByIdAndUpdate(id, {
+        title,
+        year,
+        genre,
+        plataform,
+        price,
+      });
+      console.log(`Dados do game com id ${id} alterado com sucesso.`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new gameService();

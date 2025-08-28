@@ -1,4 +1,5 @@
 import gameService from "../services/gameService.js";
+import { ObjectId } from "mongodb"; // Biblioteca do MongoDB - Verifica se a ID é válida
 
 // Função para LISTAR jogos
 const getAllgames = async (req, res) => {
@@ -24,4 +25,43 @@ const createGame = async (req, res) => {
   }
 };
 
-export default { getAllgames, createGame };
+// Função para DELETAR jogos
+const deleteGame = async (req, res) => {
+  try {
+    if (ObjectId.isValid(req.params.id)) {
+      const id = req.params.id;
+      await gameService.Delete(id);
+      res.sendStatus(204); // Código 204 (NO CONTENT) - Requisição bem sucedida, mas não há conteúdo para retornar.
+    } else {
+      // Se o ID não for válido
+      res.status(400).json({ error: "A ID enviada é invalida." });
+      // Código 400 (BAD REQUEST) - Requisição mal formada
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Erro interno do servidor." });
+
+    //res.status(500).json({}) -> para enviar json junto
+    //res.sendStatus(500) -> somente código de status
+  }
+};
+
+// Função para ALTERAR jogos
+const updateGame = async (req, res) => {
+  try{
+    if(ObjectId.isValid(req.params.id)){
+      const id = req.params.id
+      const {title, year, genre, platform, price} = req.body
+      await gameService.Update(id, year, genre, platform, price)
+      res.sendStatus(200) // Código 200 - OK
+    }else{
+      res.sendStatus(400) // Código 400 (BAD REQUEST)
+    }
+
+  }catch(error){
+    console.log(error);
+    res.status(500).json({error: "Erro interno do servidor."})
+  }
+}
+
+export default { getAllgames, createGame, deleteGame, updateGame };
