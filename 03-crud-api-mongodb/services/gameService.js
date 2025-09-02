@@ -57,4 +57,9 @@ class gameService {
   }
 }
 
+//Listando um registro único
+async getOne(){
+
+}
+
 export default new gameService();
