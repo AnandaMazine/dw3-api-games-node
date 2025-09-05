@@ -1,20 +1,23 @@
 import express from "express";
-// import mongoose from "mongoose";
-import Game from "./models/Games.js";
-import connect from './config/db-connection.js'
+import mongoose from "mongoose";
+const app = express();
 
+// Importando para ser criado no banco
+import Game from "./models/Games.js";
+import User from "./models/Users.js";
 //Importando as rotas
 import gameRoutes from "./routes/gameRoutes.js";
-
-const app = express();
+// Importando as rotas de usuários
+import userRotes from "./routes/userRoutes.js";
 
 // Configurações do Express
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use('/', gameRoutes)
+app.use("/", gameRoutes);
+app.use("/", userRotes);
 
 // Iniciando a conexão com o Bando de Dados do MongoDB
-// mongoose.connect("mongodb://127.0.0.1:27017/api-thegames");
+mongoose.connect("mongodb://127.0.0.1:27017/api-thegames");
 
 // Rodando a API na porta 4000
 const port = 4000;

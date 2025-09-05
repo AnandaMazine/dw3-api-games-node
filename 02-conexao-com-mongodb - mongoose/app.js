@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import Game from "./models/Games.js";
+import mongoose from './config/db-connection.js'
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Iniciando a conexão com o Bando de Dados do MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/api-thegames");
+// mongoose.connect("mongodb://127.0.0.1:27017/api-thegames");
 
 // Criando um retorno na API
 app.get("/", async (req, res) => {
