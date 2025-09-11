@@ -7,7 +7,7 @@ import Auth from "../middleware/Auth.js";
 // A camada de routes será responsável por contar os ENDPOINTS(rotas, URL) da API
 
 // ENDPOINT para LISTAR
-gameRoutes.get("/games", gameController.getAllgames);
+gameRoutes.get("/games", Auth.Authorization, gameController.getAllgames);
 
 // ENDPOINT para CADASTRAR
 gameRoutes.post("/games", Auth.Authorization, gameController.createGame);
