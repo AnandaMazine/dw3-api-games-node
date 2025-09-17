@@ -20,7 +20,7 @@ app.use("/", userRotes);
 mongoose.connect("mongodb://127.0.0.1:27017/api-thegames");
 
 // Rodando a API na porta 4000
-const port = 4000;
+const port = process.env.PORT || 8080;
 app.listen(port, (error) => {
   if (error) {
     console.log(error);
